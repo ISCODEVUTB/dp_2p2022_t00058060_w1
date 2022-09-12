@@ -1,0 +1,256 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[5]:
+
+
+class Carro(): #Creamos la clase principal.
+    def __init__(self, marca, placa, color, modelo, kilometros): 
+        self.marca = marca
+        self.placa = placa
+        self.color = color
+        self.modelo = modelo
+        self.kilometros = kilometros
+    def addNuevoKilometraje(self, nuevoskilometros):
+        kilometros = self.kilometros + nuevoskilometros
+        return('Los nuevos kilometros recorridos son {}'.format(kilometros))
+
+
+# ## 2. Agregar objetos (instan
+
+# In[7]:
+
+
+camioneta = Carro('Chevrolet','yus234','rojo',2020,0)
+
+
+
+# In[8]:
+
+
+camioneta.addNuevoKilometraje(20)
+
+
+# ## 3. Creación de subclases
+
+# In[9]:
+
+
+class Bus(Carro): #Hereda de la clase Carros con sus mismos atributos.
+    def sillas(self, n_sillas):
+        return('El número de sillas totales es {} '.format(n_sillas))
+
+
+# # 4. Instanciar objeto a una subclase
+
+# In[11]:
+
+
+trasmilenio = Bus('volvo','RIY678','azul', 2021, 6577)
+
+
+# In[12]:
+
+
+trasmilenio.addNuevoKilometraje(800)
+
+
+# In[13]:
+
+
+trasmilenio.sillas(56)
+
+
+# In[28]:
+
+
+
+
+
+# In[29]:
+
+
+
+
+
+# In[51]:
+
+
+from abc import ABC,abstractmethod
+class Personajes():
+    def __int__(self):
+        pass
+class caracterizacion(Personajes):
+    @abstractmethod
+    def __init__(self,nombre):
+        self.nombre = nombre
+        self.nivel = 0
+        self.inventario = []
+        self.poderes = []
+        self.habilidades =[]
+        self.debilidades = []
+        self.personalidad= []
+    
+    @abstractmethod
+    def ataque(self, objetivo):
+        pass
+    
+    @abstractmethod
+    def getStatus(self):
+        print(f"Nombre: {self.nombre}. Nivel: {self.nivel}")
+    
+    def subirDeNivel(self):
+        self.nivel += 1
+        
+    def verInventario(self):
+        print(f"Inventario de {self.nombre}")
+        for objeto in self.inventario:
+            print(objeto)
+    
+    def verPoderes(self):
+        print(f"Los poderes son: {self.nombre}")
+        for objeto in self.poderes:
+            print(objeto)
+            
+    def verHabilidades(self):
+        print(f"Las habilidades son: {self.nombre}")
+        for objeto in self.habilidades:
+            print(objeto)
+            
+    def verDebilidades(self):
+        print(f"Las debilidades son: {self.nombre}")
+        for objeto in self.debilidades:
+            print(objeto)
+        
+    def verPersonalidad(self):
+        print(f"La personalidad del avatar es: {self.nombre}")
+        for objeto in self.personalidad:
+            print(objeto)
+        
+class Humano(caracterizacion):
+    def __init__(self, nombre):
+        super().__init__(nombre)
+        self.vida = 120
+        self.armas = 60
+        self.inventario = ["Flecha", "Arco","Daga","Espada"]
+        self.poderes = ["Maestro en armadura pesada","daga","espada a una mano"]
+        self.habilidades = ["Es capaz de correr a altas velocidades","Conquista"]
+        self.debilidades = ["Su nivel de energía disminuye cada vez que corre a una velocidad alta","No es inmortal"]
+        self.personalidad = ["Carismático","Gruñón", "fuerza extrema"]
+              
+    def getStatus(self):
+        print(f"Clase Humano")
+        super().getStatus()
+        
+    def ataque(self, objetivo):
+        objetivo.vida -= self.armas*0.6
+        print(f"Vida del objetivo es: {objetivo.vida}")
+
+class SuperHumano(caracterizacion):
+    def __init__(self, nombre):
+        super().__init__(nombre)
+        self.vida = 250
+        self.fuerza = 90
+        self.inventario = ["Poción de vida", "Espada","Extra"]
+        self.poderes = ["Es capaz de convertirse en un doble de su tamaño","Puede tranformarse en cualquier objeto"]
+        self.habilidades = ["Super fuerza","Capaz de resucitarse el mismo con la poción extra","Volar","Rayos X"]
+        self.debilidades = ["Debido a su tamaño no puede correr rápido","Los rayos x no funcionan en la oscuridad"]
+        self.personalidad = ["Enojo","ira", "creatividad"]
+    
+    def getStatus(self):
+        print(f"Clase SuperHumano")
+        super().getStatus()
+    
+    def ataque(self, objetivo):
+        objetivo.vida -= self.fuerza*0.8
+        print(f"El objetivo se ha quedado con {objetivo.vida} puntos de vida")
+              
+class Artificiales(caracterizacion):
+    def __init__(self,nombre):
+        super().__init__(nombre)
+        self.vida = 300
+        self.invisibilidad = 95
+        self.inventario = ["Poción de curación","Invisibilidad extra"]
+        self.poderes = ["Maestro de la invidibilidad", "Puede hacer invisible a cualquier personaje con su invisibilidad extra"]
+        self.habilidades = ["Se hace invisible en cualquier momento y lugar","Solo puede usar la poción una vez"]
+        self.debilidades = ["Solo puede hacerse invisible cuando su energía cargue completamente","No puedo hacer invisible al mismo personaje dos veces"]
+        self.personalidad = ["Amable","cariñoso", "entusiasta"]
+
+    def getStatus(self):
+        print(f"Clase Artificial")
+        super().getStatus()
+    
+    def ataque(self, objetivo):
+        objetivo.vida -= self.invisibilidad*0.9
+        print(f"El objetivo se ha quedado con {objetivo.vida} puntos de vida")
+
+class Aliens(caracterizacion):
+    def __init__(self,nombre):
+        super().__init__(nombre)
+        self.vida = 500
+        self.telequinesis = 90
+        self.inventario =["Nave pegable","Armas ultima tecnología"]
+        self.poderes = ["Maestro de la telequinesis","Maestro de armas"]
+        self.habilidades = ["Es capaz de leer las mentes de los demás y dejarlos en un trance por unos minutos","Sabe manejar las mejores armas"]
+        self.debilidades = ["Su nivel de poder disminuye con cada persona que agarra","No puede volar"]
+        self.personalidad = ["Vengativo","Poderoso"]
+        
+    def getStatus(self):
+        print(f"Clase Aliens")
+        super().getStatus()
+    
+    def ataque(self, objetivo):
+        objetivo.vida -= self.telequinesis*0.4
+        print(f"El objetivo se ha quedado con {objetivo.vida} puntos de vida")
+    
+
+
+# In[52]:
+
+
+humano = Humano("Kaladin")
+superhumano = SuperHumano("Yuno")
+artificiales = Artificiales('Innova')
+aliens = Aliens('Yoyo')
+
+humano.getStatus()
+superhumano.getStatus()
+artificiales.getStatus()
+aliens.getStatus()
+
+humano.verInventario()
+superhumano.verInventario()
+artificiales.verInventario()
+aliens.verInventario()
+
+humano.verPoderes()
+superhumano.verPoderes()
+artificiales.verPoderes()
+aliens.verPoderes()
+
+humano.verHabilidades()
+superhumano.verHabilidades()
+artificiales.verHabilidades()
+aliens.verHabilidades()
+
+humano.verDebilidades()
+superhumano.verDebilidades()
+artificiales.verDebilidades()
+aliens.verDebilidades()
+
+humano.verPersonalidad()
+superhumano.verPersonalidad()
+artificiales.verPersonalidad()
+aliens.verPersonalidad()
+
+humano.ataque(aliens)
+superhumano.ataque(artificiales)
+artificiales.ataque(humano)
+aliens.ataque(superhumano)
+
+
+# In[ ]:
+
+
+
+
